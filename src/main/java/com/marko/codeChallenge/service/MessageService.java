@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface MessageService extends BasicService<Message> {
     List<Message> findAllMessagesOrderdByDateCreated();
+    List<Message> createAndReturnList(Message message);
 }

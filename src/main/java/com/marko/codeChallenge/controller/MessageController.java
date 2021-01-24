@@ -21,8 +21,8 @@ public class MessageController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Message message, BindingResult result, Principal principal) {
-        Message createdUser = messageService.create(message);
-        return new ResponseEntity<Message>(createdUser, HttpStatus.CREATED);
+        List<Message> createdUser = messageService.createAndReturnList(message);
+        return new ResponseEntity<List<Message>>(createdUser, HttpStatus.CREATED);
     }
 
     @GetMapping("/findAllOrderByDateCreated")

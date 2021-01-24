@@ -15,10 +15,10 @@ public abstract class AbstractDataModel implements Serializable {
     private Long id;
 //    @Version
 //    private Long version;
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "DD-MMM-YYYY HH:mm:ss")
     @Column(updatable = false)
     private Date createdAt;
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "DD-MMM-YYYY HH:mm:ss")
     private Date updatedAt;
     @PrePersist
     protected void onCreate(){
