@@ -50,7 +50,6 @@ public class User extends AbstractDataModel implements UserDetails {
     @Override
     public boolean isAccountNonLocked() {
         return isActive;
-
     }
 
     @Override

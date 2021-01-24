@@ -5,12 +5,8 @@ import com.marko.codeChallenge.payload.LoginRequest;
 import com.marko.codeChallenge.security.JwtTokenProvider;
 import com.marko.codeChallenge.service.UserService;
 import com.marko.codeChallenge.exceptions.AppException;
-import com.marko.codeChallenge.model.User;
 import com.marko.codeChallenge.payload.JWTLoginSuccessResponse;
-import com.marko.codeChallenge.payload.LoginRequest;
 import com.marko.codeChallenge.payload.RefreshTokenRequest;
-import com.marko.codeChallenge.security.JwtTokenProvider;
-import com.marko.codeChallenge.service.UserService;
 import com.marko.codeChallenge.util.DescriptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +41,34 @@ public class UserController {
     private ResponseEntity<?> findUserById(@PathVariable String username, @PathVariable String password, Principal principal) {
         User user = userService.findByUsernameAndPassword(username, password);
         return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/findAll")
+    public List<User> findAll(Principal principal) {
+        return userService.findAll();
+    }
+
+    @GetMapping("/findAllNotDeleted")
+    public List<User> findAllNotDeleted(Principal principal) {
+        return userService.findAll();
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result, Principal principal) {
+        User createdUser = userService.create(user);
+        return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, Principal principal) {
+        User updatedUser = userService.update(user);
+        return new ResponseEntity<User>(updatedUser, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> deleteUser(@PathVariable Long id, Principal principal){
+        return userService.delete(id);
     }
 
     @PostMapping("/login")
